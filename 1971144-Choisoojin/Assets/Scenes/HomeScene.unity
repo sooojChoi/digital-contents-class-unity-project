@@ -160,7 +160,7 @@ RectTransform:
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: -200, y: 0}
-  m_SizeDelta: {x: 575, y: 650}
+  m_SizeDelta: {x: 679, y: 600}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &158806090
 MonoBehaviour:
@@ -182,8 +182,8 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: 6b71c800ac541604d9a6a3c17d4e2147, type: 3}
-  m_Type: 0
+  m_Sprite: {fileID: 21300000, guid: cc3c83ba2287c1b4ab01866e3b98285c, type: 3}
+  m_Type: 1
   m_PreserveAspect: 0
   m_FillCenter: 1
   m_FillMethod: 4
@@ -1367,7 +1367,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   newGameStartButton: {fileID: 1970778269}
   loadGameButton: {fileID: 1450581886}
-  gameDirector: {fileID: 0}
 --- !u!1 &1866367695
 GameObject:
   m_ObjectHideFlags: 0
