@@ -61,6 +61,14 @@ namespace ClearSky
 
         void Run()
         {
+            // 상인을 마주치면 일단 멈춘다.
+            if(CameraMoving.meetingSellerNow == 1)
+            {
+                Vector3 moveVelocity = Vector3.zero;
+                anim.SetBool("isRun", false);
+                return;
+            }
+
             if (!isKickboard)
             {
                 Vector3 moveVelocity = Vector3.zero;
