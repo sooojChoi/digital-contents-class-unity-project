@@ -242,11 +242,13 @@ MonoBehaviour:
   nextButton: {fileID: 749477446}
   sayingText: {fileID: 2088433904}
   firstCanvasObject: {fileID: 1218184596}
+  firstCharacterImage: {fileID: 123157216}
   noticeBoxImage: {fileID: 799967801}
   storeObject: {fileID: 1893911244}
   exitButton: {fileID: 57657927}
   toTalkWithSeller: {fileID: 1817084323}
   sellerBox: {fileID: 894118984}
+  firstMeetingSeller: 1
 --- !u!1 &57657925
 GameObject:
   m_ObjectHideFlags: 0
@@ -528,6 +530,7 @@ GameObject:
   m_Component:
   - component: {fileID: 136837232}
   - component: {fileID: 136837233}
+  - component: {fileID: 136837234}
   m_Layer: 0
   m_Name: cloudBox
   m_TagString: Untagged
@@ -601,6 +604,18 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!114 &136837234
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 136837231}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5fc0eecb2fb52fd44b6d4e4e6707d571, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &256567373
 GameObject:
   m_ObjectHideFlags: 0
