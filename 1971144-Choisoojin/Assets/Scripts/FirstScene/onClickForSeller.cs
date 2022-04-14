@@ -1,9 +1,18 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class onClickForSeller : MonoBehaviour
 {
+    public int firstMeetingSeller = 1;  //1 이면 상인을 처음 만나는 것, 0이면 이미 한 번 만난 것
+    public GameObject noticeBoxImage;
+    public GameObject storeObject;
+    public Button nextButton;
+    public Text sayingText;
+    public GameObject firstCanvasObject;
+    public Image firstCharacterImage;  // 스크립트의 캐릭터 이미지
+
     // Start is called before the first frame update
     void Start()
     {
@@ -26,13 +35,31 @@ public class onClickForSeller : MonoBehaviour
             {
                 if(mouseY<y+ offsetY && mouseY > y - offsetY)
                 {
-                    Debug.Log("물체 범위가 눌림");
+                    showStore();
                 }
             }
         }
     }
     public void showStore()
     {
-        Debug.Log("showStore button is clicked");
+        if (firstMeetingSeller == 1)
+        {
+            firstMeetingSeller = 0;
+            noticeBoxImage.SetActive(false);
+            sayingText.text = "아이템을 사고 싶다고요? 좋아요! 우리 상점엔 정말 좋은 아이템이 많아요. ";
+            Sprite[] sprites = Resources.LoadAll<Sprite>("Character/PackForest01");
+            firstCharacterImage.sprite = sprites[3];
+            nextButton.onClick.AddListener(showStoreForNextButton);
+            firstCanvasObject.SetActive(true);
+        }
+        else
+        {
+            storeObject.SetActive(true);
+        }
+    }
+    void showStoreForNextButton()
+    {
+        firstCanvasObject.SetActive(false);
+        storeObject.SetActive(true);
     }
 }

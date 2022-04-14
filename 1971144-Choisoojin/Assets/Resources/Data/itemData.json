@@ -1,0 +1,81 @@
+﻿{
+  "itemInfo": [
+    {
+      "name": "apple",
+      "koname": "사과",
+      "price": 100,
+      "hp": 10,
+      "mp": 0
+    },
+    {
+      "name": "cheese",
+      "koname": "치즈",
+      "price": 100,
+      "hp": 10,
+      "mp": 0
+    },
+    {
+      "name": "bread",
+      "koname": "빵",
+      "price": 100,
+      "hp": 10,
+      "mp": 0
+    },
+    {
+      "name": "mushroom",
+      "koname": "버섯",
+      "price": 100,
+      "hp": 10,
+      "mp": 0
+    },
+    {
+      "name": "clover",
+      "koname": "행운의 네잎클로버",
+      "price": 500,
+      "hp": 20,
+      "mp": 0
+    },
+    {
+      "name": "meat",
+      "koname": "만화 고기",
+      "price": 200,
+      "hp": 20,
+      "mp": 0
+    },
+    {
+      "name": "greenPotion",
+      "koname": "초록 포션",
+      "price": 100,
+      "hp": 10,
+      "mp": 0
+    },
+    {
+      "name": "purplePotion",
+      "koname": "보라 포션",
+      "price": 200,
+      "hp": 20,
+      "mp": 0
+    },
+    {
+      "name": "bluePotion",
+      "koname": "파란 포션",
+      "price": 300,
+      "hp": 30,
+      "mp": 0
+    },
+    {
+      "name": "redPotion",
+      "koname": "빨간 포션",
+      "price": 400,
+      "hp": 40,
+      "mp": 0
+    },
+    {
+      "name": "bomb",
+      "koname": "폭탄",
+      "price": 500,
+      "hp": 0,
+      "mp": 50
+    }
+  ]
+}

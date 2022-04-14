@@ -27,3 +27,32 @@ public class GameSaveInfo : ILoader<string, GameSaveData>
         return dict;
     }
 }
+
+
+[Serializable]
+public class Item
+{
+    public string name;
+    public string koname;
+    public int price;
+    public int hp; 
+    public int mp;
+}
+
+[Serializable]
+public class ItemInfo : ILoader<string, Item>
+{
+    public List<Item> itemInfo = new List<Item>();
+
+    public Dictionary<string, Item> MakeDict()
+    {
+        Dictionary<string, Item> dict = new Dictionary<string, Item>();
+
+        foreach (Item item in itemInfo)
+        {
+            dict.Add(item.name, item);
+        }
+
+        return dict;
+    }
+}

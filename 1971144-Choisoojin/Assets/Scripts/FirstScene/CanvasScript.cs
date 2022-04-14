@@ -16,10 +16,10 @@ public class CanvasScript : MonoBehaviour
     public GameObject noticeBoxImage;
     public GameObject storeObject;
     public Button exitButton;
-    public Button toTalkWithSeller;
+  //  public Button toTalkWithSeller;
 
     public GameObject sellerBox;
-    public int firstMeetingSeller = 1;  //1 이면 상인을 처음 만나는 것, 0이면 이미 한 번 만난 것
+   // public int firstMeetingSeller = 1;  //1 이면 상인을 처음 만나는 것, 0이면 이미 한 번 만난 것
     // 상인을 처음 만날 때만 대화 스크립트가 나오게 하기 위한 것.
 
     // Start is called before the first frame update
@@ -32,7 +32,7 @@ public class CanvasScript : MonoBehaviour
 
         storeObject.SetActive(false);
         exitButton.onClick.AddListener(exitStore);
-        toTalkWithSeller.onClick.AddListener(showStore);
+      //  toTalkWithSeller.onClick.AddListener(showStore);
     }
 
     // Update is called once per frame
@@ -46,37 +46,28 @@ public class CanvasScript : MonoBehaviour
         
     }
 
-    public void showStore()
-    {
-        if(firstMeetingSeller == 1)
-        {
-            firstMeetingSeller = 0;
-            noticeBoxImage.SetActive(false);
-            sayingText.text = "아이템을 사고 싶다고요? 좋아요! 우리 상점엔 정말 좋은 아이템이 많아요. ";
-            Sprite[] sprites = Resources.LoadAll<Sprite>("Character/PackForest01");
-            if(sprites == null)
-            {
-                Debug.Log("sprite is null");
-            }
-            else
-            {
-                Debug.Log("sprite is not null");
-            }
-            firstCharacterImage.sprite = sprites[3];
-            nextButton.onClick.AddListener(showStoreForNextButton);
-            firstCanvasObject.SetActive(true);
-        }
-        else
-        {
-            storeObject.SetActive(true);
-        }
-       
-    }
-    void showStoreForNextButton()
-    {
-        firstCanvasObject.SetActive(false);
-        storeObject.SetActive(true);
-    }
+    //public void showStore()
+    //{
+    //    if(firstMeetingSeller == 1)
+    //    {
+    //        firstMeetingSeller = 0;
+    //        noticeBoxImage.SetActive(false);
+    //        sayingText.text = "아이템을 사고 싶다고요? 좋아요! 우리 상점엔 정말 좋은 아이템이 많아요. ";
+    //        Sprite[] sprites = Resources.LoadAll<Sprite>("Character/PackForest01");
+    //        firstCharacterImage.sprite = sprites[3];
+    //        nextButton.onClick.AddListener(showStoreForNextButton);
+    //        firstCanvasObject.SetActive(true);
+    //    }
+    //    else
+    //    {
+    //        storeObject.SetActive(true);
+    //    }
+    //}
+    //void showStoreForNextButton()
+    //{
+    //    firstCanvasObject.SetActive(false);
+    //    storeObject.SetActive(true);
+    //}
     void exitStore()
     {
         CameraMoving.meetingSellerNow = 0;
