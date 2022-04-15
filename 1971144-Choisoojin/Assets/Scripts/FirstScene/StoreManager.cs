@@ -7,12 +7,14 @@ public class StoreManager : MonoBehaviour
 {
     public Button LeftButton;
     public Button RightButton;
-    public Button buttonForHPItem;
-    public Button buttonForMPItem;
+    public Button buttonForHPItem;  // 버튼을 누르면 회복 아이템만 보여줌.
+    public Button buttonForMPItem;  // 버튼을 누르면 공격 아이템만 보여줌.
+    public Button purchaseButton;  // '구매하기' 버튼
     int isHPMode; // 1면 화면에 hp아이템 보여주고, 0이면 mp아이템 보여줌.
     public Image selectedImage;  // 선택된 아이템을 보여주는 이미지
     public Text selectedItemName;  // 선택된 아이템 이름
     public Text selectedItemDes;  // 선택된 아이템 설명
+    public Text selectedItemPrice;  // 선택된 아이템 가격
 
     List<Item> hpItemList;
     List<Item> mpItemList;
@@ -77,9 +79,13 @@ public class StoreManager : MonoBehaviour
         selectedImage.sprite = Managers.Data.ItemSprite[firstItemName];
         selectedItemName.text = Managers.Data.ItemData[firstItemName].koname;
         selectedItemDes.text = "회복 +"+Managers.Data.ItemData[firstItemName].hp;
+        selectedItemPrice.text = Managers.Data.ItemData[firstItemName].price.ToString();
 
         buttonForHPItem.onClick.AddListener(changeItemModeToHP);
         buttonForMPItem.onClick.AddListener(changeItemModeToMP);
+        purchaseButton.onClick.AddListener(onClickForPurchase);
+
+        InitItemButton();
     }
     void itemSet(int itemCnt)
     {
@@ -198,9 +204,53 @@ public class StoreManager : MonoBehaviour
             RightButton.interactable = false;
         }
     }
+
+    void InitItemButton()
+    {
+        for(int i = 1; i <= 8; i++)
+        {
+            Button button = GameObject.Find($"item{i}").GetComponent<Button>();
+            Image image = GameObject.Find($"Item{i}").GetComponent<Image>();
+            button.onClick.AddListener(delegate { onClickForItem(image); });
+        }
+    }
+    //아이템을 클릭할 때마다 아래에 선택된 아이템의 이미지와 정보를 나타냄.
+    void onClickForItem(Image image)
+    {
+        selectedImage.sprite = image.sprite;
+        foreach (KeyValuePair<string, Item> item in Managers.Data.ItemData)
+        {
+            if (item.Value.name == image.sprite.name)
+            {
+                selectedItemName.text = item.Value.koname;
+                selectedItemPrice.text = item.Value.price.ToString();
+                if (isHPMode == 1)
+                {
+                    selectedItemDes.text =  "회복 +" + item.Value.hp;
+                }else if(isHPMode == 0)
+                {
+                    selectedItemDes.text = "공격력 +" + item.Value.mp;
+                }
+            }
+        }
+
+    }
+
+    void onClickForPurchase()  // 구매하는 버튼 누르면 호출되는 함수
+    {
+        // 구매하기 누르면 아이템을 구매할 수 있고, List에 추가된 다음
+        // "나가기"버튼을 누를 때 json 파일에도 저장된다.
+        // 플레이어인포의 money를 보고, 현재 소유한 money보다 비싼
+        //아이템을 구매할 시 구매를 못하게 해야됨. (비활성화?)
+        // 
+    }
+
     // Update is called once per frame
     void Update()
     {
+        // 플레이어의 money보다 아이템 가격이 높으면 구매하기 버튼 비활성화.
+        // 아이템을 구매할 때 변경되는 변수값과 비교해야할 것. 
+        // 실제 json의 money값은 바로바로 바뀌지 않을지도 몰라ㅏㅏ
         
     }
 }

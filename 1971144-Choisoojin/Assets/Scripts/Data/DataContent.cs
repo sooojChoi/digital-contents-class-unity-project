@@ -56,3 +56,29 @@ public class ItemInfo : ILoader<string, Item>
         return dict;
     }
 }
+
+[Serializable]
+public class playerData  // player의 정보를 가진 json. 소유한 아이템이나 돈 정보 등.
+{
+    public string name;  // 아이템의 경우 아이템의 이름, 돈 정보는 "money"이다.
+    public int content;  // 아이템의 경우 아이템 개수, 돈의 경우 얼마를 소유하고 있는지.
+    public string sort;  // 아이템의 경우 hp인지 mp인지. 돈의 경우 null.
+}
+
+[Serializable]
+public class playerDataInfo : ILoader<string, playerData>
+{
+    public List<playerData> playerInfo = new List<playerData>();
+
+    public Dictionary<string, playerData> MakeDict()
+    {
+        Dictionary<string, playerData> dict = new Dictionary<string, playerData>();
+
+        foreach (playerData player in playerInfo)
+        {
+            dict.Add(player.name, player);
+        }
+
+        return dict;
+    }
+}
