@@ -12,7 +12,7 @@ public class DataManager : MonoBehaviour
     public Dictionary<string, GameSaveData> GameSaveData { get; private set; } = new Dictionary<string, GameSaveData>();
     public Dictionary<string, Sprite> ItemSprite { get; private set; } = new Dictionary<string, Sprite>();  //아이템 이미지를 담을 딕셔너리.
     public Dictionary<string, Item> ItemData { get; private set; } = new Dictionary<string, Item>();
-
+    public Dictionary<string, playerData> PlayerData { get; private set; } = new Dictionary<string, playerData>();
 
     // Start is called before the first frame update
     void Start()
@@ -23,6 +23,7 @@ public class DataManager : MonoBehaviour
     {
         GameSaveData = LoadJson<GameSaveInfo, string, GameSaveData>("gameSaveData").MakeDict();
         ItemData = LoadJson<ItemInfo, string, Item>("itemData").MakeDict();
+        PlayerData = LoadJson<playerDataInfo, string, playerData>("playerData").MakeDict();
         foreach (KeyValuePair<string, Item> recp in ItemData)
         {
             //전체 아이템이 담긴 ItemData를 활용하여 {아이템 이름-Key, 이미지-Value} Dictionary를 만든다.

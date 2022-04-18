@@ -29,13 +29,6 @@
       "mp": 0
     },
     {
-      "name": "clover",
-      "koname": "행운의 네잎클로버",
-      "price": 500,
-      "hp": 20,
-      "mp": 0
-    },
-    {
       "name": "meat",
       "koname": "만화 고기",
       "price": 200,
@@ -68,6 +61,13 @@
       "koname": "빨간 포션",
       "price": 400,
       "hp": 40,
+      "mp": 0
+    },
+    {
+      "name": "clover",
+      "koname": "행운의 네잎클로버",
+      "price": 500,
+      "hp": 50,
       "mp": 0
     },
     {

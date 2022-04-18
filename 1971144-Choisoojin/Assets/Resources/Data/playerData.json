@@ -2,8 +2,8 @@
   "playerInfo": [
     {
       "name": "money",
-      "content": 100,
-      "sort": null
+      "content": 1000,
+      "sort": ""
     }
   ]
 }

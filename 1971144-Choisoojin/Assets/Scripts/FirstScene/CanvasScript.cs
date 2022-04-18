@@ -12,6 +12,7 @@ public class CanvasScript : MonoBehaviour
     string[] firstChracterSaying;
     int textNum = 0;
     public static int sellerScriptEnd = 0;
+    public Text moneyText;  // 사용자 돈 나타내는 text
 
     public GameObject noticeBoxImage;
     public GameObject storeObject;
@@ -32,7 +33,17 @@ public class CanvasScript : MonoBehaviour
 
         storeObject.SetActive(false);
         exitButton.onClick.AddListener(exitStore);
-      //  toTalkWithSeller.onClick.AddListener(showStore);
+        //  toTalkWithSeller.onClick.AddListener(showStore);
+
+        foreach (KeyValuePair<string, playerData> player in Managers.Data.PlayerData)
+        {
+            Debug.Log("player money text is update.");
+            if (player.Value.name == "money")
+            {
+                moneyText.text = player.Value.content.ToString();
+                break;
+            }
+        }
     }
 
     // Update is called once per frame
@@ -46,28 +57,6 @@ public class CanvasScript : MonoBehaviour
         
     }
 
-    //public void showStore()
-    //{
-    //    if(firstMeetingSeller == 1)
-    //    {
-    //        firstMeetingSeller = 0;
-    //        noticeBoxImage.SetActive(false);
-    //        sayingText.text = "아이템을 사고 싶다고요? 좋아요! 우리 상점엔 정말 좋은 아이템이 많아요. ";
-    //        Sprite[] sprites = Resources.LoadAll<Sprite>("Character/PackForest01");
-    //        firstCharacterImage.sprite = sprites[3];
-    //        nextButton.onClick.AddListener(showStoreForNextButton);
-    //        firstCanvasObject.SetActive(true);
-    //    }
-    //    else
-    //    {
-    //        storeObject.SetActive(true);
-    //    }
-    //}
-    //void showStoreForNextButton()
-    //{
-    //    firstCanvasObject.SetActive(false);
-    //    storeObject.SetActive(true);
-    //}
     void exitStore()
     {
         CameraMoving.meetingSellerNow = 0;

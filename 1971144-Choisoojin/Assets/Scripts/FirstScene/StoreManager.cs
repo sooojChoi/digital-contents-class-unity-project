@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using System.IO;
 
 public class StoreManager : MonoBehaviour
 {
@@ -10,11 +11,14 @@ public class StoreManager : MonoBehaviour
     public Button buttonForHPItem;  // 버튼을 누르면 회복 아이템만 보여줌.
     public Button buttonForMPItem;  // 버튼을 누르면 공격 아이템만 보여줌.
     public Button purchaseButton;  // '구매하기' 버튼
+    public Button exitButton;  // '나가기' 버튼
     int isHPMode; // 1면 화면에 hp아이템 보여주고, 0이면 mp아이템 보여줌.
     public Image selectedImage;  // 선택된 아이템을 보여주는 이미지
     public Text selectedItemName;  // 선택된 아이템 이름
     public Text selectedItemDes;  // 선택된 아이템 설명
     public Text selectedItemPrice;  // 선택된 아이템 가격
+    public Text moneyText;  // 사용자 돈 나타내는 text
+    public Text moneyTextForStore;  // 상점에서만 보이는 사용자 money Text UI
 
     List<Item> hpItemList;
     List<Item> mpItemList;
@@ -22,6 +26,9 @@ public class StoreManager : MonoBehaviour
     int mpItemPage = 0;
     int currentPage = 1;  // item 에서 화살표 버튼 클릭하면 넘어가는 페이지 변수
     int showedItemNum = 8;  // 한 화면에 보이는 아이템 개수
+
+    string firstItemName = "apple";  // 처음 시작할 때 선택되어있는 아이템 설정.
+    string selectedItemEngName = "";  // 아이템이 선택되면 여기에 영어 이름(딕셔너리 키값)이 저장됨.
 
     void Init()
     {
@@ -74,18 +81,51 @@ public class StoreManager : MonoBehaviour
         Init();
         itemSet((currentPage - 1) * showedItemNum + 1);
 
-        string firstItemName = "apple";
         selectedImage.color = new Color(1, 1, 1, 1);
         selectedImage.sprite = Managers.Data.ItemSprite[firstItemName];
         selectedItemName.text = Managers.Data.ItemData[firstItemName].koname;
         selectedItemDes.text = "회복 +"+Managers.Data.ItemData[firstItemName].hp;
         selectedItemPrice.text = Managers.Data.ItemData[firstItemName].price.ToString();
 
+        int money = Managers.Data.PlayerData["money"].content;
+        if (Managers.Data.ItemData[firstItemName].price > money)
+        {
+            purchaseButton.interactable = false;
+        }
+        else
+        {
+            purchaseButton.interactable = true;
+        }
+        selectedItemEngName = firstItemName;
+
         buttonForHPItem.onClick.AddListener(changeItemModeToHP);
         buttonForMPItem.onClick.AddListener(changeItemModeToMP);
         purchaseButton.onClick.AddListener(onClickForPurchase);
 
         InitItemButton();
+        exitButton.onClick.AddListener(exitStore);
+
+        moneyTextForStore.text = moneyText.text;
+    }
+    void exitStore()
+    {
+        selectedImage.color = new Color(1, 1, 1, 1);
+        selectedImage.sprite = Managers.Data.ItemSprite[firstItemName];
+        selectedItemName.text = Managers.Data.ItemData[firstItemName].koname;
+        selectedItemDes.text = "회복 +" + Managers.Data.ItemData[firstItemName].hp;
+        selectedItemPrice.text = Managers.Data.ItemData[firstItemName].price.ToString();
+
+        int money = Managers.Data.PlayerData["money"].content;
+        if (Managers.Data.ItemData[firstItemName].price > money)
+        {
+            purchaseButton.interactable = false;
+        }
+        else
+        {
+            purchaseButton.interactable = true;
+        }
+
+        selectedItemEngName = firstItemName;
     }
     void itemSet(int itemCnt)
     {
@@ -231,6 +271,21 @@ public class StoreManager : MonoBehaviour
                 {
                     selectedItemDes.text = "공격력 +" + item.Value.mp;
                 }
+
+                int money = Managers.Data.PlayerData["money"].content;
+                if(item.Value.price > money)
+                {
+                    purchaseButton.interactable = false;
+                }
+                else
+                {
+                    purchaseButton.interactable = true;
+                }
+
+                // onClickForPurchase에서 현재 선택된 아이템의 키값(영어이름)을 알기 위해서..
+                selectedItemEngName = item.Value.name;
+
+                break;
             }
         }
 
@@ -238,19 +293,63 @@ public class StoreManager : MonoBehaviour
 
     void onClickForPurchase()  // 구매하는 버튼 누르면 호출되는 함수
     {
-        // 구매하기 누르면 아이템을 구매할 수 있고, List에 추가된 다음
-        // "나가기"버튼을 누를 때 json 파일에도 저장된다.
-        // 플레이어인포의 money를 보고, 현재 소유한 money보다 비싼
-        //아이템을 구매할 시 구매를 못하게 해야됨. (비활성화?)
-        // 
+        // 이미 playerData에 있는 아이템인지 확인하고, 없으면 추가, 있으면 content수 증가.
+        if (Managers.Data.PlayerData.ContainsKey(selectedItemEngName))
+        {
+            // 이미 구매한 적이 있는 경우
+            Managers.Data.PlayerData[selectedItemEngName].content += 1;   // 아이템 수량을 늘리고
+            Managers.Data.PlayerData["money"].content -= Managers.Data.ItemData[selectedItemEngName].price;  // 돈을 빼준다.
+        }
+        else
+        {
+            // 처음 구매하는 경우
+            playerData itemForPurchase = new playerData();
+            itemForPurchase.name = selectedItemEngName;
+            itemForPurchase.content = 1;
+            if (Managers.Data.ItemData[selectedItemEngName].hp == 0)  // 회복 아이템인지 공격 아이템인지..
+            {
+                itemForPurchase.sort = "mp";
+            }
+            else
+            {
+                itemForPurchase.sort = "hp";
+            }
+
+            Managers.Data.PlayerData.Add(selectedItemEngName, itemForPurchase);
+            Managers.Data.PlayerData["money"].content -= Managers.Data.ItemData[selectedItemEngName].price;
+        }
+        // 상단 좌측과 상점 쪽에 나타나는 내 돈 액수를 수정해준다.
+        moneyText.text = Managers.Data.PlayerData["money"].content.ToString();
+        moneyTextForStore.text = Managers.Data.PlayerData["money"].content.ToString();
+        // 만약 더 이상 구매할 돈이 없다면 '구매하기'버튼을 비활성화 시킨다. 
+        if (Managers.Data.PlayerData["money"].content< Managers.Data.ItemData[selectedItemEngName].price)
+        {
+            purchaseButton.interactable = false;
+        }
+        // json 파일에 변경사항을 저장해준다. 
+        playerInfoSave("/Resources/Data/playerData.json");
+    }
+
+  //  playerData.json 파일 저장하는 함수
+    void playerInfoSave(string path)
+    {
+        List<playerData> playerInfo = new List<playerData>();
+        playerDataInfo playerData = new playerDataInfo();
+
+        foreach (KeyValuePair<string, playerData> player in Managers.Data.PlayerData)
+        {
+            playerInfo.Add(player.Value);
+        }
+        playerData.playerInfo = playerInfo;
+
+        string jsonString = JsonUtility.ToJson(playerData);
+        File.WriteAllText(Application.dataPath + path, jsonString);
     }
 
     // Update is called once per frame
     void Update()
     {
-        // 플레이어의 money보다 아이템 가격이 높으면 구매하기 버튼 비활성화.
-        // 아이템을 구매할 때 변경되는 변수값과 비교해야할 것. 
-        // 실제 json의 money값은 바로바로 바뀌지 않을지도 몰라ㅏㅏ
+        
         
     }
 }
