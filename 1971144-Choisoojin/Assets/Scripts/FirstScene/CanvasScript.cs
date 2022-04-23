@@ -66,12 +66,14 @@ public class CanvasScript : MonoBehaviour
     }
     string[] InitTextArray()
     {
-        string[] tempArray = new string[5];
-        tempArray[0] = "모험가님, 우리 마을에 오신 것을 환영합니다.";
-        tempArray[1] = "소문을 듣고 오셨군요. 보스 몬스터를 잡으면 엄청난 보물을 받을 수 있다는 소문 말이에요!";
-        tempArray[2] = "몬스터를 잡으려면 튼튼한 체력과 강력한 무기가 필요하답니다.";
-        tempArray[3] = "걱정마세요, 체력 아이템과 무기는 상점에서 팔고 있으니까요.  ";
-        tempArray[4] = "먼저 상인을 찾아서 말을 걸어보세요.";
+        string[] tempArray = new string[7];
+        tempArray[0] = "게임을 시작하지! 친구, 전설의 옥수수깡에 대해 혹시 아나?";
+        tempArray[1] = "뭐? 이건 그냥 고소한 과자가 아냐! 고소하고 매콤한데 짭짤하기까지 하다고!";
+        tempArray[2] = "크흠.. 너무 흥분했군. 하지만 내가 먹어본 것 중 최고였는걸.";
+        tempArray[3] = "하지만 마지막으로 본지가 언제인지 기억도 안나. 몬스터들이 모두 독차지 했으니까 말이야! 흑흑";
+        tempArray[4] = "뭐? 너가 몬스터를 모두 무찌르고 가져다 주겠다고?";
+        tempArray[5] = "그럼 가기전에 상점에 먼저 들러. 몬스터는 만만한 녀석들이 아니야! 회복 아이템이 꼭 필요하다고!";
+        tempArray[6] = "그럼 부탁해 친구! 전설의 옥수수깡을 먹을 수 있는 그 날까지!";
 
         return tempArray;
     }

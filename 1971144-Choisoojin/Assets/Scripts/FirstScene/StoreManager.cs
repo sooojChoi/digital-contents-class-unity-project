@@ -27,7 +27,7 @@ public class StoreManager : MonoBehaviour
     int currentPage = 1;  // item 에서 화살표 버튼 클릭하면 넘어가는 페이지 변수
     int showedItemNum = 8;  // 한 화면에 보이는 아이템 개수
 
-    string firstItemName = "apple";  // 처음 시작할 때 선택되어있는 아이템 설정.
+    string firstItemName = "banana";  // 처음 시작할 때 선택되어있는 아이템 설정.
     string selectedItemEngName = "";  // 아이템이 선택되면 여기에 영어 이름(딕셔너리 키값)이 저장됨.
 
     void Init()
