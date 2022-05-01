@@ -1,1 +1,14 @@
-{"playerInfo":[{"name":"money","content":300,"sort":""},{"name":"bomb","content":1,"sort":"mp"},{"name":"indianbob","content":1,"sort":"hp"},{"name":"chicken","content":1,"sort":"hp"}]}
+{
+  "playerInfo": [
+    {
+      "name": "money",
+      "content": 2000,
+      "sort": ""
+    },
+    {
+      "name": "chicken",
+      "content": 1,
+      "sort": "hp"
+    }
+  ]
+}

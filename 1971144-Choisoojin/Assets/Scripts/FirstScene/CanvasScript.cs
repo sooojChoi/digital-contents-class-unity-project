@@ -18,6 +18,7 @@ public class CanvasScript : MonoBehaviour
     public GameObject storeObject;  // 가게 이미지를 가지고 있는 게임 오브젝트
     public GameObject InventoryObject;  // 인벤토리 이미지를 가지고 있는 게임 오브젝트
     public Button exitButton;
+    public Button openInventoryButton;  // 인벤토리 여는 버튼
   //  public Button toTalkWithSeller;
 
     public GameObject sellerBox;
@@ -34,7 +35,9 @@ public class CanvasScript : MonoBehaviour
         InventoryObject.SetActive(false);
 
         storeObject.SetActive(false);
+        InventoryObject.SetActive(false);
         exitButton.onClick.AddListener(exitStore);
+        openInventoryButton.onClick.AddListener(openInventory);
         //  toTalkWithSeller.onClick.AddListener(showStore);
 
         foreach (KeyValuePair<string, playerData> player in Managers.Data.PlayerData)
@@ -68,14 +71,16 @@ public class CanvasScript : MonoBehaviour
     }
     string[] InitTextArray()
     {
-        string[] tempArray = new string[7];
+        string[] tempArray = new string[9];
         tempArray[0] = "게임을 시작하지! 친구, 전설의 옥수수깡에 대해 혹시 아는가?";
-        tempArray[1] = "뭐? 이건 그냥 고소한 과자가 아냐! 고소하고 매콤한데 짭짤하기까지 하다고!";
+        tempArray[1] = "뭐? 이건 그냥 과자가 아냐! 고소하고 매콤한데 짭짤하기까지 하다고!";
         tempArray[2] = "크흠.. 너무 흥분했군. 하지만 내가 먹어본 것 중 최고였는걸.";
-        tempArray[3] = "하지만 마지막으로 본지가 언제인지 기억도 안나. 몬스터들이 모두 독차지 했으니까 말이야! 흑흑";
-        tempArray[4] = "뭐? 너가 몬스터를 모두 무찌르고 가져다 주겠다고?";
-        tempArray[5] = "그럼 가기전에 상점에 먼저 들러. 몬스터는 만만한 녀석들이 아니야! 회복 아이템이 꼭 필요하다고!";
-        tempArray[6] = "그럼 부탁해 친구! 전설의 옥수수깡을 먹을 수 있는 그 날까지!";
+        tempArray[3] = "하지만 마지막으로 본지가 언제인지 기억도 안나.";
+        tempArray[4] = "몬스터들이 모두 독차지 했으니까 말이야! 흑흑";
+        tempArray[5] = "뭐? 너가 몬스터를 모두 무찌르고 가져다 주겠다고?";
+        tempArray[6] = "그럼 가기전에 상점에 먼저 들러.";
+        tempArray[7] = "몬스터는 만만한 녀석들이 아니야! 회복 아이템이 꼭 필요하다고!";
+        tempArray[8] = "그럼 부탁해 친구! 전설의 옥수수깡을 먹을 수 있는 그 날까지!";
 
         return tempArray;
     }
@@ -90,6 +95,12 @@ public class CanvasScript : MonoBehaviour
         {
             firstCanvasObject.SetActive(false);
         }
+    }
+
+    //인벤토리 여는 함수
+    void openInventory()
+    {
+         InventoryObject.SetActive(true);
     }
 
 }
