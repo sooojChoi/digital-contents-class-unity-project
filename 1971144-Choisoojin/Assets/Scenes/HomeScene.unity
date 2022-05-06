@@ -1050,7 +1050,8 @@ PrefabInstance:
       propertyPath: m_Name
       value: CollegeStudent Variant
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 8640346475962747023, guid: 82139f5fb84f14f498a9746d48c45adc, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: 82139f5fb84f14f498a9746d48c45adc, type: 3}
 --- !u!1 &1278905877
 GameObject:

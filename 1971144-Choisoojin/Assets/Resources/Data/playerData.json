@@ -2,13 +2,18 @@
   "playerInfo": [
     {
       "name": "money",
-      "content": 2000,
+      "content": 500,
       "sort": ""
     },
     {
-      "name": "chicken",
+      "name": "hpItem",
       "content": 1,
-      "sort": "hp"
+      "sort": ""
+    },
+    {
+      "name": "mpItem",
+      "content": 1,
+      "sort": ""
     }
   ]
 }

@@ -14,6 +14,13 @@ public class InventoryManager : MonoBehaviour
     public Button openInventoryButton;  // 인벤토리 여는 버튼
     int isHPMode; // 1면 화면에 hp아이템 보여주고, 0이면 mp아이템 보여줌.
 
+    public Image hpItemImage;  // hp 아이템으로 설정됨.
+    public Image mpItemImage;  // mp 아이템으로 설정됨.
+    public Text hpTextName;  // hp 아이템으로 설정됨 (아이템 이름)
+    public Text mpTextName;  // mp 아이템으로 설정됨 (아이템 이름)
+    public Text hpTextPower;  // hp 아이템으로 설정됨 (아이템 강도)
+    public Text mpTextPower;  // mp 아이템으로 설정됨 (아이템 강도)
+
     List<Item> hpItemList;
     List<Item> mpItemList;
     int hpItemPage = 0;  // 화살표 버튼 활성화 설정을 위한 변수
@@ -84,6 +91,24 @@ public class InventoryManager : MonoBehaviour
         exitButton.onClick.AddListener(exitStore);
         openInventoryButton.onClick.RemoveAllListeners();
         openInventoryButton.onClick.AddListener(openInventory);
+
+        // 설정된 회복, 공격 아이템이 있으면 인벤토리에 나타낸다.
+        if(Managers.Data.PlayerData["hpItem"].sort != "")
+        {
+            hpItemImage.color = new Color(1, 1, 1, 1);
+            string hpItemName = Managers.Data.PlayerData["hpItem"].sort;
+            hpItemImage.sprite = Managers.Data.ItemSprite[hpItemName];
+            hpTextName.text = Managers.Data.ItemData[hpItemName].koname;
+            hpTextPower.text = "회복 +"+Managers.Data.ItemData[hpItemName].hp.ToString();
+        }
+        if (Managers.Data.PlayerData["mpItem"].sort != "")
+        {
+            mpItemImage.color = new Color(1, 1, 1, 1);
+            string mpItemName = Managers.Data.PlayerData["mpItem"].sort;
+            mpItemImage.sprite = Managers.Data.ItemSprite[mpItemName];
+            mpTextName.text = Managers.Data.ItemData[mpItemName].koname;
+            mpTextPower.text = "회복 +" + Managers.Data.ItemData[mpItemName].mp.ToString();
+        }
     }
     void exitStore()
     {
@@ -96,8 +121,58 @@ public class InventoryManager : MonoBehaviour
         {
             Button button = GameObject.Find($"invItem{i}").GetComponent<Button>();
             Image image = GameObject.Find($"iv_item{i}").GetComponent<Image>();
-         //   button.onClick.AddListener(delegate { onClickForItem(image); });
+            button.onClick.AddListener(delegate { onClickForItem(image); });
         }
+    }
+
+    //아이템을 클릭할 때마다 아래에 선택된 아이템의 이미지와 정보를 나타냄.
+    void onClickForItem(Image image)
+    {
+        if(image.sprite == null)
+        {
+            return;
+        }
+        if(isHPMode == 1)  //hp 아이템을 클릭했을 경우
+        {
+            hpItemImage.color = new Color(1, 1, 1, 1);
+            hpItemImage.sprite = image.sprite;
+            foreach (KeyValuePair<string, Item> item in Managers.Data.ItemData)
+            {
+                if (item.Value.name == image.sprite.name)
+                {
+                    // 화면에 선택된 아이템 정보를 나타낸다.
+                    hpTextName.text = item.Value.koname;  
+                    hpTextPower.text = "회복 +" + item.Value.hp;
+
+                    // 사용자의 hpItem 정보를 선택된 아이템으로 수정한다.
+                    Managers.Data.PlayerData["hpItem"].sort = item.Value.name;
+
+                    break;
+                }
+            }
+        }
+        else  // mp 아이템을 선택했을 경우
+        {
+            mpItemImage.color = new Color(1, 1, 1, 1);
+            mpItemImage.sprite = image.sprite;
+            foreach (KeyValuePair<string, Item> item in Managers.Data.ItemData)
+            {
+                if (item.Value.name == image.sprite.name)
+                {
+                    // 화면에 선택된 아이템 정보를 나타낸다.
+                    mpTextName.text = item.Value.koname;
+                    mpTextPower.text = "공격력 +" + item.Value.mp;
+
+                    // 사용자의 hpItem 정보를 선택된 아이템으로 수정한다.
+                    Managers.Data.PlayerData["mpItem"].sort = item.Value.name;
+
+                    break;
+                }
+            }
+        }
+        // json 파일에 변경사항을 저장해준다. 
+        playerInfoSave("/Resources/Data/playerData.json");
+
     }
     void itemSet(int itemCnt)
     {
@@ -152,14 +227,14 @@ public class InventoryManager : MonoBehaviour
             itemImage.color = new Color(1, 1, 1, 1);
             itemImage.sprite = Managers.Data.ItemSprite[item.name];
             Text itemNameText = GameObject.Find($"iv_text{i}").GetComponent<Text>();
-            itemNameText.text = item.koname+" " + Managers.Data.PlayerData[item.name].content.ToString()+"개";
-            Text itemPower = GameObject.Find($"iv_power{i++}").GetComponent<Text>();
+            itemNameText.text = Managers.Data.PlayerData[item.name].content.ToString();
+            Text itemInfo = GameObject.Find($"iv_info{i++}").GetComponent<Text>();
             if(Managers.Data.PlayerData[item.name].sort == "hp")
             {
-                itemPower.text = "HP: "+Managers.Data.ItemData[item.name].hp.ToString();
+                itemInfo.text = item.koname + "\nHP: " + Managers.Data.ItemData[item.name].hp.ToString();
             }else if(Managers.Data.PlayerData[item.name].sort == "mp")
             {
-                itemPower.text = "MP: "+Managers.Data.ItemData[item.name].mp.ToString();
+                itemInfo.text = item.koname+"\nMP: "+Managers.Data.ItemData[item.name].mp.ToString();
             }
             
         }
@@ -171,8 +246,8 @@ public class InventoryManager : MonoBehaviour
             image.color = new Color(1, 1, 1, 0);
             Text itemNameText = GameObject.Find($"iv_text{i}").GetComponent<Text>();
             itemNameText.text = "";
-            Text itemPower = GameObject.Find($"iv_power{i}").GetComponent<Text>();
-            itemPower.text = "";
+            Text itemInfo = GameObject.Find($"iv_info{i}").GetComponent<Text>();
+            itemInfo.text = "";
         }
     }
     void rightBtnClicked()
@@ -237,6 +312,7 @@ public class InventoryManager : MonoBehaviour
             RightButton.interactable = false;
         }
     }
+
     //  playerData.json 파일 저장하는 함수
     void playerInfoSave(string path)
     {

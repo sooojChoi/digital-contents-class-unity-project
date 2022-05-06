@@ -27,7 +27,7 @@ public class onClickForPortal : MonoBehaviour
         {
             if (characterX < x + offsetX && characterX > x - offsetX)
             {
-                FadeOut(2.0f, goToOtherScene);   // 화면이 점점 어두워지고, 씬 이동한다.
+                FadeOut(1.5f, goToOtherScene);   // 화면이 점점 어두워지고, 씬 이동한다.
             }
         }
     }
@@ -54,7 +54,7 @@ public class onClickForPortal : MonoBehaviour
     // 투명 -> 불투명
     IEnumerator CoFadeIn(float fadeOutTime, System.Action nextEvent = null)
     {
-        // SpriteRenderer sr = gameObject.GetComponent<SpriteRenderer>();
+        float black = 0.5f;
         foregroundImage.transform.SetAsLastSibling();
          Color tempColor = foregroundImage.color;
         while (tempColor.a < 1f)
@@ -68,6 +68,13 @@ public class onClickForPortal : MonoBehaviour
         }
 
         foregroundImage.color = tempColor;
+
+        while (black < 1f)
+        {
+            black += Time.deltaTime / fadeOutTime;
+            
+            yield return null;
+        }
         if (nextEvent != null) nextEvent();
     }
 }
