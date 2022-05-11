@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using System.IO;
 
 namespace ClearSky
 {
@@ -31,18 +32,27 @@ namespace ClearSky
             Restart();
             if (alive)
             {
-                Hurt();
                 Die();
                 Attack();
                 Jump();
                 KickBoard();
                 Run();
-
+                EatHPItem();
             }
         }
-        private void OnTriggerEnter2D(Collider2D other)
+        private void OnTriggerEnter2D(Collider2D collision)
         {
             anim.SetBool("isJump", false);
+            anim.SetBool("isRun", false);
+           // Debug.Log("물체와 충돌함");
+            if (collision.gameObject.tag == "Monster")
+            {
+                Debug.Log("몬스터와 충돌함");
+                Hurt();
+                Managers.Data.PlayerData["hp"].content -= 20;
+                // json 파일에 변경사항을 저장해준다. 
+                playerInfoSave("/Resources/Data/playerData.json");
+            }
         }
         void KickBoard()
         {
@@ -147,23 +157,52 @@ namespace ClearSky
         }
         void Hurt()
         {
-            if (Input.GetKeyDown(KeyCode.Alpha2))
-            {
-                anim.SetTrigger("hurt");
-                if (direction == 1)
-                    rb.AddForce(new Vector2(-5f, 1f), ForceMode2D.Impulse);
-                else
-                    rb.AddForce(new Vector2(5f, 1f), ForceMode2D.Impulse);
-            }
+            anim.SetTrigger("hurt");
+            if (direction == 1)
+                rb.AddForce(new Vector2(-5f, 1f), ForceMode2D.Impulse);
+            else
+                rb.AddForce(new Vector2(5f, 1f), ForceMode2D.Impulse);
         }
         void Die()
         {
-            if (Input.GetKeyDown(KeyCode.Alpha3))
+            // 플레이어의 체력이 0이 된다면 죽는다.
+            if (Managers.Data.PlayerData["hp"].content <= 0)
             {
                 isKickboard = false;
                 anim.SetBool("isKickBoard", false);
                 anim.SetTrigger("die");
                 alive = false;
+            }
+        }
+        void EatHPItem()
+        {
+            if (Input.GetKeyDown(KeyCode.A))
+            {
+                // hp 아이템을 먹는다. (플레이어의 체력을 회복한다)
+                playerData pd = Managers.Data.PlayerData["hpItem"];
+                if (pd.sort != "" && Managers.Data.PlayerData["hp"].content < 1000)
+                {
+                    // 체력을 아이템의 hp만큼 증가시킨다.
+                    Managers.Data.PlayerData["hp"].content += Managers.Data.ItemData[pd.sort].hp;
+
+                    // 체력이 1000을 넘기면 1000으로 한다. (최대 1000을 넘기지 못하도록 한다.)
+                    if (Managers.Data.PlayerData["hp"].content > 1000)
+                    {
+                        Managers.Data.PlayerData["hp"].content = 1000;
+                    }
+
+                    // 아이템을 먹었으니까 개수를 1만큼 줄인다.
+                    Managers.Data.PlayerData[pd.sort].content -= 1;
+                    // 만약 아이템을 다 먹었으면, PlayerData에서 제거한다.
+                    if (Managers.Data.PlayerData[pd.sort].content == 0)
+                    {
+                        Managers.Data.PlayerData.Remove(pd.sort);  // 아이템 제거.
+                        pd.sort = "";  // 설정된 hpItem이 없어짐.
+                    }
+
+                    // json 파일에 변경사항을 저장해준다. 
+                    playerInfoSave("/Resources/Data/playerData.json");
+                }
             }
         }
         void Restart()
@@ -176,6 +215,24 @@ namespace ClearSky
                 alive = true;
             }
         }
+
+
+        //  playerData.json 파일 저장하는 함수
+        void playerInfoSave(string path)
+        {
+            List<playerData> playerInfo = new List<playerData>();
+            playerDataInfo playerData = new playerDataInfo();
+
+            foreach (KeyValuePair<string, playerData> player in Managers.Data.PlayerData)
+            {
+                playerInfo.Add(player.Value);
+            }
+            playerData.playerInfo = playerInfo;
+
+            string jsonString = JsonUtility.ToJson(playerData);
+            File.WriteAllText(Application.dataPath + path, jsonString);
+        }
+
     }
 
 }

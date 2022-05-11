@@ -61,8 +61,9 @@ public class ItemInfo : ILoader<string, Item>
 public class playerData  // player의 정보를 가진 json. 소유한 아이템이나 돈 정보 등.
 {
     public string name;  // 아이템의 경우 아이템의 이름,
-                         // 돈 정보는 "money", 설정된 회복 아이템은 "hpItem", 설정된 공격 아이템은 "mpItem"이다.
-                         // money와 hpItem, mpItem은 없어지면 안되는 정보.
+                         // 돈 정보는 "money", 설정된 회복 아이템은 "hpItem", 설정된 공격 아이템은 "mpItem", 플레이어 체력은 "hp"
+                         // "hpItem"과 "mpItem"의 아이템 이름은 sort에 저장된다. "content"는 항상 1.
+                         // money와 hpItem, mpItem, hp는 없어지면 안되는 정보.
 
     public int content;  // 아이템의 경우 아이템 개수, 돈의 경우 얼마를 소유하고 있는지.
     public string sort;  // 아이템의 경우 hp인지 mp인지. 돈의 경우 null.
