@@ -40,14 +40,15 @@ namespace ClearSky
                 EatHPItem();
             }
         }
-        private void OnTriggerEnter2D(Collider2D collision)
+    
+        private void OnCollisionEnter2D(Collision2D collision)
         {
             anim.SetBool("isJump", false);
             anim.SetBool("isRun", false);
-           // Debug.Log("물체와 충돌함");
+            // Debug.Log("물체와 충돌함");
             if (collision.gameObject.tag == "Monster")
             {
-                Debug.Log("몬스터와 충돌함");
+                Debug.Log("collisionEnter2D: 몬스터와 충돌함");
                 Hurt();
                 Managers.Data.PlayerData["hp"].content -= 20;
                 // json 파일에 변경사항을 저장해준다. 
