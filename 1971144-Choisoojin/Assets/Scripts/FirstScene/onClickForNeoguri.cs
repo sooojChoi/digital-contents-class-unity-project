@@ -60,7 +60,7 @@ public class onClickForNeoguri : MonoBehaviour
         tempArray[0] = "친구! 상점에서 아이템은 잘 샀는가?";
         tempArray[1] = "좋았어! 그럼 이제 몬스터 마을로 가서 전설의 옥수수깡을 찾아줘! 놈들이 가져간 내 옥수수깡은 총 10개야.";
         tempArray[2] = "옆에 포탈을 만들어줄테니 다녀오라구!";
-        tempArray[3] = "포탈에서 방향키 아래키를 누르면 이동할 수 있어.";
+        tempArray[3] = "포탈에서 키보드 'S'를 누르면 이동할 수 있어.";
      
         return tempArray;
     }

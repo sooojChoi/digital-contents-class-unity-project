@@ -44,16 +44,19 @@ public class monsterManager : MonoBehaviour
         {
             // 3초 뒤에 이 함수를 호출하도록 함.
             StartCoroutine("generateObj", 1);
+            monsterNumPoint1++;
         }
         if(monsterNumPoint2 < 3)
         {
             // 3초 뒤에 이 함수를 호출하도록 함.
             StartCoroutine("generateObj", 2);
+            monsterNumPoint2++;
         }
         if (monsterNumPoint3 < 5)
         {
             // 3초 뒤에 이 함수를 호출하도록 함.
             StartCoroutine("generateObj", 3);
+            monsterNumPoint3++;
         }
 
         
@@ -61,18 +64,21 @@ public class monsterManager : MonoBehaviour
 
     IEnumerator generateObj(int sort)
     {
-        // sort는 구역을 의미. 3초 쉬고 새로운 몬스터를 지정된 구역에 생성한다.
-        yield return new WaitForSeconds(3.0f);
+        // sort는 구역을 의미. 6초 쉬고 새로운 몬스터를 지정된 구역에 생성한다.
+        yield return new WaitForSeconds(6.0f);
 
-        if(sort == 1)
+        if (sort == 1)
         {
             pigGenerator.generateMonster(mon1, startX[0], endX[0], positionY[0], 1);
-        }else if (sort == 2)
+        }
+        else if (sort == 2)
         {
             pigGenerator.generateMonster(mon2, startX[1], endX[1], positionY[1], 1);
-        }else if(sort == 3)
+        }
+        else if (sort == 3)
         {
             pigGenerator.generateMonster(mon3, startX[2], endX[2], positionY[2], 1);
+
         }
     }
 }

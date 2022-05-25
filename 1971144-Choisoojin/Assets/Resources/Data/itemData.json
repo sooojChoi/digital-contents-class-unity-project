@@ -83,6 +83,20 @@
       "price": 500,
       "hp": 0,
       "mp": 50
+    },
+    {
+      "name": "redFireAttackItem",
+      "koname": "빨간 불꽃",
+      "price": 250,
+      "hp": 0,
+      "mp": 20
+    },
+    {
+      "name": "blueFireAttackItem",
+      "koname": "파란 불꽃",
+      "price": 250,
+      "hp": 0,
+      "mp": 20
     }
   ]
 }

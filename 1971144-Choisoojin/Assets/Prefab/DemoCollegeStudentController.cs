@@ -11,6 +11,9 @@ namespace ClearSky
         public float KickBoardMovePower = 15f;
         public float jumpPower = 20f; //Set Gravity Scale in Rigidbody2D Component to 5
 
+        public GameObject redFireWeapon;
+        public GameObject blueFireWeapon;
+
         private Rigidbody2D rb;
         private Animator anim;
         Vector3 movement;
@@ -38,6 +41,7 @@ namespace ClearSky
                 KickBoard();
                 Run();
                 EatHPItem();
+                
             }
         }
     
@@ -85,7 +89,7 @@ namespace ClearSky
                 Vector3 moveVelocity = Vector3.zero;
                 anim.SetBool("isRun", false);
 
-
+                //Input.GetAxisRaw("Horizontal") < 0
                 if (Input.GetAxisRaw("Horizontal") < 0)
                 {
                     direction = -1;
@@ -131,7 +135,8 @@ namespace ClearSky
         }
         void Jump()
         {
-            if ((Input.GetButtonDown("Jump") || Input.GetAxisRaw("Vertical") > 0)
+            //(Input.GetButtonDown("Jump") || Input.GetAxisRaw("Vertical")
+            if (Input.GetKeyDown(KeyCode.W)
             && !anim.GetBool("isJump"))
             {
                 isJumping = true;
@@ -151,9 +156,35 @@ namespace ClearSky
         }
         void Attack()
         {
-            if (Input.GetKeyDown(KeyCode.Alpha1))
+            if (Input.GetKeyDown(KeyCode.Space))
             {
                 anim.SetTrigger("attack");
+                string mpItemName = Managers.Data.PlayerData["mpItem"].sort;
+                Vector3 pos;
+                float offsetX = 2.0f;
+                float offsetY = 2.2f;
+                if (mpItemName == "redFireAttackItem")
+                {
+                    if(transform.localScale.x == 1)  // 플레이어가 오른쪽을 보고 있다면,
+                    {
+                        pos = new Vector3(offsetX, offsetY, 0);
+                        Instantiate(redFireWeapon, transform.position+ pos, transform.rotation * Quaternion.Euler(0f, 0f, 90f)); 
+                    }else if(transform.localScale.x == -1)// 플레이어가 왼쪽을 보고 있다면,
+                    {
+                        pos = new Vector3(-offsetX, offsetY, 0);
+                        Instantiate(redFireWeapon, transform.position+pos, transform.rotation * Quaternion.Euler(0f, 0f, -90f)); 
+                    }
+                }else if(mpItemName == "blueFireAttackItem")
+                {
+                    if (transform.localScale.x == 1)  // 플레이어가 오른쪽을 보고 있다면,
+                    {
+                        Instantiate(blueFireWeapon, transform.position, transform.rotation * Quaternion.Euler(0f, 0f, 90f));
+                    }
+                    else if (transform.localScale.x == -1)// 플레이어가 왼쪽을 보고 있다면,
+                    {
+                        Instantiate(blueFireWeapon, transform.position, transform.rotation * Quaternion.Euler(0f, 0f, -90f));
+                    }
+                }
             }
         }
         void Hurt()
@@ -177,7 +208,7 @@ namespace ClearSky
         }
         void EatHPItem()
         {
-            if (Input.GetKeyDown(KeyCode.A))
+            if (Input.GetKeyDown(KeyCode.Q))
             {
                 // hp 아이템을 먹는다. (플레이어의 체력을 회복한다)
                 playerData pd = Managers.Data.PlayerData["hpItem"];

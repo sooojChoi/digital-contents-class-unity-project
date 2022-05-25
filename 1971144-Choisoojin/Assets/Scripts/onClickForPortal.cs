@@ -23,7 +23,7 @@ public class onClickForPortal : MonoBehaviour
   
         float characterX = character.transform.position.x;
         float offsetX = 2;
-        if (Input.GetKeyDown(KeyCode.DownArrow))
+        if (Input.GetKeyDown(KeyCode.S))
         {
             if (characterX < x + offsetX && characterX > x - offsetX)
             {

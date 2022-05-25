@@ -107,7 +107,7 @@ public class InventoryManager : MonoBehaviour
             string mpItemName = Managers.Data.PlayerData["mpItem"].sort;
             mpItemImage.sprite = Managers.Data.ItemSprite[mpItemName];
             mpTextName.text = Managers.Data.ItemData[mpItemName].koname;
-            mpTextPower.text = "회복 +" + Managers.Data.ItemData[mpItemName].mp.ToString();
+            mpTextPower.text = "공격력 +" + Managers.Data.ItemData[mpItemName].mp.ToString();
         }
     }
     void exitStore()

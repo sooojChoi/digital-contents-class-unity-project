@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 9092055359672791430}
   - component: {fileID: 4275559328823519265}
   - component: {fileID: -2637528667166333183}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: pig_idle
   m_TagString: Monster
   m_Icon: {fileID: 0}
@@ -116,6 +116,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 79fce70dedaf490459dbb8442ee98557, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  fakeCorn: {fileID: 5459733988628809192, guid: fb46c9b4b5b51b5449056d8da42a8276, type: 3}
   whoAmI: 1
   startX: 11
   endX: 23
@@ -138,7 +139,7 @@ BoxCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0, y: -0.01}
+  m_Offset: {x: -0.01, y: -0.01}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
@@ -149,5 +150,5 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 1.32, y: 1.1}
+  m_Size: {x: 1, y: 1.1}
   m_EdgeRadius: 0

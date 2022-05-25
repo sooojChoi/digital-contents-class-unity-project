@@ -46,7 +46,7 @@ public class onClickForSeller : MonoBehaviour
         {
             firstMeetingSeller = 0;
             noticeBoxImage.SetActive(false);
-            sayingText.text = "아이템을 사고 싶다고요? 좋아요! 우리 상점엔 정말 좋은 아이템이 많아요. ";
+            sayingText.text = "아이템을 사고 싶다고요? 좋아요! 무기 아이템은 하나씩만 살 수 있답니다. ";
             Sprite[] sprites = Resources.LoadAll<Sprite>("Character/PackForest01");
             firstCharacterImage.sprite = sprites[3];
             nextButton.onClick.AddListener(showStoreForNextButton);

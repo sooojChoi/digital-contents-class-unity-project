@@ -9,6 +9,8 @@ public class pigController : MonoBehaviour
     // 돼지 몬스터 이미지는 flipX가 false면 오른쪽을 보고, true이면 하면 왼쪽을 본다.
     SpriteRenderer sr;
 
+    public GameObject fakeCorn;  // 몬스터가 죽으면서 생성되는 아이템
+
     public int whoAmI = 0;  // 1구역 돼지면 1, 2구역이면 2, 3구역이면 3
 
     // 어느 공간에 랜덤으로 생성될지 알기 위해 startX, endX, positionY 지정.
@@ -116,34 +118,42 @@ public class pigController : MonoBehaviour
         
     }
 
-    private void OnTriggerEnter2D(Collider2D collision)
+    private void OnCollisionEnter2D(Collision2D collision)
     {
+        Debug.Log("돼지랑 무언가랑 충돌함.");
         // 현재 게임 오브젝트가 누군가와 충돌했는데 그 충돌체의 태그가 "Weapon"이라면, 
-        if (collision.gameObject.tag == "weapon")
+        if (collision.gameObject.tag == "Weapon")
         {
-            if(whoAmI == 1)
+            Debug.Log("돼지랑 무기랑 충돌함.");
+            if (whoAmI == 1)
             {
                 monsterManager.monsterNumPoint1 -= 1;
-            }else if(whoAmI == 2)
+            }
+            else if (whoAmI == 2)
             {
                 monsterManager.monsterNumPoint2 -= 1;
-            }else if (whoAmI == 3)
+            }
+            else if (whoAmI == 3)
             {
                 monsterManager.monsterNumPoint3 -= 1;
             }
             monsterManager.killNumber += 1;  // 내가 죽인 몬스터 수가 1만큼 증가한다.
+            Destroy(collision.gameObject);
+
+
+            animator.SetBool("isDie", true);
 
             // 나도 없애고 그 충돌체도 없애라.
-            StartCoroutine("dieMonster", collision.gameObject);
+            StartCoroutine("dieMonster");
         }
     }
 
-    IEnumerator dieMonster(GameObject obj)
-    {
-        animator.SetBool("isDie", true);
-        
-        yield return new WaitForSecondsRealtime(2.0f);
-        Destroy(obj);
+
+
+    IEnumerator dieMonster()
+    {   
+        yield return new WaitForSecondsRealtime(0.8f);
         Destroy(gameObject);
+        Instantiate(fakeCorn, gameObject.transform.position, fakeCorn.transform.rotation);  // 몬스터를 생성한다.
     }
 }

@@ -280,6 +280,15 @@ public class StoreManager : MonoBehaviour
                 else
                 {
                     purchaseButton.interactable = true;
+                    if (item.Value.hp == 0)  // 공격 아이템인데 사용자가 이미 구매한 적이 있다면 또 구매못함.
+                    {
+                        // 이미 playerData에 있는 아이템인지 확인
+                        if (Managers.Data.PlayerData.ContainsKey(item.Value.name))
+                        {
+                            purchaseButton.interactable = false;
+                        }
+                    }
+                   
                 }
 
                 // onClickForPurchase에서 현재 선택된 아이템의 키값(영어이름)을 알기 위해서..
@@ -293,6 +302,14 @@ public class StoreManager : MonoBehaviour
 
     void onClickForPurchase()  // 구매하는 버튼 누르면 호출되는 함수
     {
+        if (Managers.Data.ItemData[selectedItemEngName].hp == 0)  // 공격 아이템이라면, 이미 하나 구매했으면 더 이상 구매하지 못한다.
+        {
+            // 이미 playerData에 있는 아이템인지 확인
+            if (Managers.Data.PlayerData.ContainsKey(selectedItemEngName))
+            {
+                return;
+            }
+        }
         // 이미 playerData에 있는 아이템인지 확인하고, 없으면 추가, 있으면 content수 증가.
         if (Managers.Data.PlayerData.ContainsKey(selectedItemEngName))
         {
