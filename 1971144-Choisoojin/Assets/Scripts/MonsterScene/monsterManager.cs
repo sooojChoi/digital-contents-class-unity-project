@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class monsterManager : MonoBehaviour
 {
@@ -19,6 +20,12 @@ public class monsterManager : MonoBehaviour
     public GameObject mon2;  // 구역2에 생성되는 몬스터 프리팹
     public GameObject mon3;  // 구역3에 생성되는 몬스터 프리팹
 
+    public Text cornNumberText;  // 현재 죽인 몬스터의 개수를 나타내는 텍스트
+    public static int cornNumber = 0;  // 현재 먹은 옥수수깡 개수
+
+    public GameObject missionComplete;  // 옥수수깡 10개를 다 모으면 보여지는 이미지
+    int alreadyShowing = 0; // 미션 컴플리트 메시지를 보여줬는지 아닌지.
+
     // Start is called before the first frame update
     void Start()
     {
@@ -34,19 +41,24 @@ public class monsterManager : MonoBehaviour
         endX[2] = 83;
         positionY[2] = 2.8f;
 
+
+        cornNumberText.text = cornNumber.ToString();
+        missionComplete.SetActive(false);
+        alreadyShowing = 0;
+
     }
 
     // Update is called once per frame
     void Update()
     {
         // 원래 있어야 하는 몬스터 수보다 적게 있으면(플레이어가 죽여서), 3초뒤에 몬스터를 한 마리 더 생성한다.
-        if(monsterNumPoint1 < 2)
+        if (monsterNumPoint1 < 2)
         {
             // 3초 뒤에 이 함수를 호출하도록 함.
             StartCoroutine("generateObj", 1);
             monsterNumPoint1++;
         }
-        if(monsterNumPoint2 < 3)
+        if (monsterNumPoint2 < 3)
         {
             // 3초 뒤에 이 함수를 호출하도록 함.
             StartCoroutine("generateObj", 2);
@@ -59,8 +71,20 @@ public class monsterManager : MonoBehaviour
             monsterNumPoint3++;
         }
 
-        
+        cornNumberText.text = cornNumber.ToString();
+        // 옥수수깡 10개를 다 모으면, 다 모았다는 메시지를 나타내준다.
+        if (cornNumber == 10)
+        {
+            if(alreadyShowing == 0)
+            {
+                missionComplete.SetActive(true);
+                FadeOut(1.5f, dismissCompleteImage);
+                alreadyShowing = 1;
+            }
+        }
     }
+
+
 
     IEnumerator generateObj(int sort)
     {
@@ -78,7 +102,42 @@ public class monsterManager : MonoBehaviour
         else if (sort == 3)
         {
             pigGenerator.generateMonster(mon3, startX[2], endX[2], positionY[2], 1);
-
         }
     }
+    void dismissCompleteImage()
+    {
+        missionComplete.SetActive(false);
+    }
+
+    public void FadeOut(float fadeOutTime, System.Action nextEvent = null)
+    {
+        StartCoroutine(CoFadeOut(fadeOutTime, nextEvent));
+    }
+    IEnumerator CoFadeOut(float fadeOutTime, System.Action nextEvent = null)
+    {
+        Image image = missionComplete.GetComponent<Image>();
+        float black = 0.5f;
+        missionComplete.transform.SetAsLastSibling();
+        Color tempColor = image.color;
+        while (tempColor.a > 0f)
+        {
+            tempColor.a -= Time.deltaTime / fadeOutTime;
+            image.color = tempColor;
+
+            if (tempColor.a < 0f) tempColor.a = 0f;
+
+            yield return null;
+        }
+
+        image.color = tempColor;
+
+        while (black < 1f)
+        {
+            black += Time.deltaTime / fadeOutTime;
+
+            yield return null;
+        }
+        if (nextEvent != null) nextEvent();
+    }
+
 }

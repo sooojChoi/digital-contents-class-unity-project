@@ -54,7 +54,7 @@ namespace ClearSky
             {
                 Debug.Log("collisionEnter2D: 몬스터와 충돌함");
                 Hurt();
-                Managers.Data.PlayerData["hp"].content -= 20;
+                Managers.Data.PlayerData["hp"].content -= 50;
                 // json 파일에 변경사항을 저장해준다. 
                 playerInfoSave("/Resources/Data/playerData.json");
             }
