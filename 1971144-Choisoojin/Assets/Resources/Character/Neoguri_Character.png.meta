@@ -1,13 +1,10 @@
 fileFormatVersion: 2
-guid: 23f3c1b749b40b044b5354ba0443cba7
+guid: 2d1cd3eea1ae8e1498437b4ff0527688
 TextureImporter:
   internalIDToNameTable:
   - first:
       213: 4252900564987821235
     second: Neoguri_Character_0
-  - first:
-      213: 986022884101054440
-    second: Neoguri_Character_1
   - first:
       213: -6226452012891407205
     second: Neoguri_Character_2
@@ -26,9 +23,6 @@ TextureImporter:
   - first:
       213: -4947767744231079846
     second: Neoguri_Character_7
-  - first:
-      213: -6017513411706633611
-    second: Neoguri_Character_8
   - first:
       213: 9010352294024664728
     second: Neoguri_Character_9
@@ -137,9 +131,9 @@ TextureImporter:
       rect:
         serializedVersion: 2
         x: 48
-        y: 418
-        width: 142
-        height: 170
+        y: 420
+        width: 173
+        height: 168
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -149,27 +143,6 @@ TextureImporter:
       bones: []
       spriteID: 3bc3821f786550b30800000000000000
       internalID: 4252900564987821235
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Neoguri_Character_1
-      rect:
-        serializedVersion: 2
-        x: 188
-        y: 425
-        width: 33
-        height: 37
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 8efdf33c69e0fad00800000000000000
-      internalID: 986022884101054440
       vertices: []
       indices: 
       edges: []
@@ -284,9 +257,9 @@ TextureImporter:
       rect:
         serializedVersion: 2
         x: 506
-        y: 87
-        width: 228
-        height: 248
+        y: 86
+        width: 281
+        height: 249
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -296,27 +269,6 @@ TextureImporter:
       bones: []
       spriteID: a5088f5737ff55bb0800000000000000
       internalID: -4947767744231079846
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Neoguri_Character_8
-      rect:
-        serializedVersion: 2
-        x: 735
-        y: 94
-        width: 54
-        height: 58
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 572c3182f6f7d7ca0800000000000000
-      internalID: -6017513411706633611
       vertices: []
       indices: 
       edges: []

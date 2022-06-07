@@ -3430,7 +3430,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b6992b066b4d5d341a0e5d6f3b2e321d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  gameSceneName: FirstScene
+  gameSceneName: MidScene
   character: {fileID: 2133020665}
   foregroundImage: {fileID: 2029522422}
 --- !u!95 &834562744

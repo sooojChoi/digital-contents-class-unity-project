@@ -82,21 +82,21 @@
       "koname": "폭탄",
       "price": 500,
       "hp": 0,
-      "mp": 50
+      "mp": 80
     },
     {
       "name": "redFireAttackItem",
       "koname": "빨간 불꽃",
       "price": 250,
       "hp": 0,
-      "mp": 20
+      "mp": 50
     },
     {
       "name": "blueFireAttackItem",
       "koname": "파란 불꽃",
       "price": 250,
       "hp": 0,
-      "mp": 20
+      "mp": 50
     }
   ]
 }

@@ -28,6 +28,7 @@ public class CanvasScript : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        firstCanvasObject.SetActive(true);
         noticeBoxImage.SetActive(false);
         firstChracterSaying = InitTextArray();
         sayingText.text = firstChracterSaying[textNum];
@@ -93,6 +94,7 @@ public class CanvasScript : MonoBehaviour
         }
         else
         {
+            Debug.Log("³¡");
             firstCanvasObject.SetActive(false);
         }
     }

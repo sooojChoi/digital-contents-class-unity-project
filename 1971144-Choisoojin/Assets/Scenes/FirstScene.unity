@@ -856,7 +856,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: -6226452012891407205, guid: 23f3c1b749b40b044b5354ba0443cba7, type: 3}
+  m_Sprite: {fileID: -6226452012891407205, guid: 2d1cd3eea1ae8e1498437b4ff0527688, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -5263,12 +5263,12 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 3
-  m_Sprite: {fileID: 4252900564987821235, guid: 23f3c1b749b40b044b5354ba0443cba7, type: 3}
+  m_Sprite: {fileID: 4252900564987821235, guid: 2d1cd3eea1ae8e1498437b4ff0527688, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
-  m_Size: {x: 1.42, y: 1.7}
+  m_Size: {x: 1.73, y: 1.68}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
@@ -8970,7 +8970,9 @@ MonoBehaviour:
   sayingText: {fileID: 2088433904}
   nextButton: {fileID: 749477446}
   firstCharacterImage: {fileID: 123157216}
+  secondCharacterImage: {fileID: 0}
   portalObject: {fileID: 426429291}
+  midScene: 0
 --- !u!1 &1675007869
 GameObject:
   m_ObjectHideFlags: 0

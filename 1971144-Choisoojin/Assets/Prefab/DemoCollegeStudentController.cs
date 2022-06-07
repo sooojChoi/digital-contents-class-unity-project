@@ -25,6 +25,9 @@ namespace ClearSky
         private bool isKickboard = false;
 
         public Image foregroundImage;
+        public bool isBossScene = false;
+        public float limitLeftX;
+        public float limitRightX;
 
         // Start is called before the first frame update
         void Start()
@@ -60,6 +63,18 @@ namespace ClearSky
                 Managers.Data.PlayerData["hp"].content -= 50;
                 // json 파일에 변경사항을 저장해준다. 
                 playerInfoSave("/Resources/Data/playerData.json");
+            }else if (collision.gameObject.tag == "Golem" && alive == true)
+            {
+                Hurt();
+                Managers.Data.PlayerData["hp"].content -= 100;
+                // json 파일에 변경사항을 저장해준다. 
+                playerInfoSave("/Resources/Data/playerData.json");
+            }else if (collision.gameObject.tag == "Rock" && alive == true)
+            {
+                Hurt();
+                Managers.Data.PlayerData["hp"].content -= 200;
+                // json 파일에 변경사항을 저장해준다. 
+                playerInfoSave("/Resources/Data/playerData.json");
             }
         }
         void KickBoard()
@@ -89,6 +104,7 @@ namespace ClearSky
 
             if (!isKickboard)
             {
+                
                 Vector3 moveVelocity = Vector3.zero;
                 anim.SetBool("isRun", false);
 
@@ -113,8 +129,19 @@ namespace ClearSky
                         anim.SetBool("isRun", true);
 
                 }
-                transform.position += moveVelocity * movePower * Time.deltaTime;
-
+                Vector3 temp = transform.position + moveVelocity * movePower * Time.deltaTime;
+              
+                if (isBossScene == true)
+                {
+                    if(temp.x>limitLeftX && temp.x < limitRightX)
+                    {
+                        transform.position += moveVelocity * movePower * Time.deltaTime;
+                    }
+                }
+                else
+                {
+                    transform.position += moveVelocity * movePower * Time.deltaTime;
+                }
             }
             if (isKickboard)
             {

@@ -46,6 +46,16 @@ public class onClickForPortal : MonoBehaviour
                     SceneManager.LoadScene("FirstScene");
                     break;
                 }
+            case "BossScene":
+                {
+                    SceneManager.LoadScene("BossScene");
+                    break;
+                }
+            case "MidScene":
+                {
+                    SceneManager.LoadScene("MidScene");
+                    break;
+                }
             default:
                 break;
         }
