@@ -2,6 +2,8 @@
 using System.Collections.Generic;
 using UnityEngine;
 using System.IO;
+using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 
 namespace ClearSky
 {
@@ -22,6 +24,7 @@ namespace ClearSky
         private bool alive = true;
         private bool isKickboard = false;
 
+        public Image foregroundImage;
 
         // Start is called before the first frame update
         void Start()
@@ -50,7 +53,7 @@ namespace ClearSky
             anim.SetBool("isJump", false);
             anim.SetBool("isRun", false);
             // Debug.Log("물체와 충돌함");
-            if (collision.gameObject.tag == "Monster")
+            if (collision.gameObject.tag == "Monster" && alive == true)
             {
                 Debug.Log("collisionEnter2D: 몬스터와 충돌함");
                 Hurt();
@@ -161,8 +164,8 @@ namespace ClearSky
                 anim.SetTrigger("attack");
                 string mpItemName = Managers.Data.PlayerData["mpItem"].sort;
                 Vector3 pos;
-                float offsetX = 1.0f;
-                float offsetY = 2.2f;
+                float offsetX = -0.1f;
+                float offsetY = 2.0f;
                 if (mpItemName == "redFireAttackItem")
                 {
                     if(transform.localScale.x == 1)  // 플레이어가 오른쪽을 보고 있다면,
@@ -178,11 +181,13 @@ namespace ClearSky
                 {
                     if (transform.localScale.x == 1)  // 플레이어가 오른쪽을 보고 있다면,
                     {
-                        Instantiate(blueFireWeapon, transform.position, transform.rotation * Quaternion.Euler(0f, 0f, 90f));
+                        pos = new Vector3(offsetX, offsetY, 0);
+                        Instantiate(blueFireWeapon, transform.position+pos, transform.rotation * Quaternion.Euler(0f, 0f, 90f));
                     }
                     else if (transform.localScale.x == -1)// 플레이어가 왼쪽을 보고 있다면,
                     {
-                        Instantiate(blueFireWeapon, transform.position, transform.rotation * Quaternion.Euler(0f, 0f, -90f));
+                        pos = new Vector3(offsetX, offsetY, 0);
+                        Instantiate(blueFireWeapon, transform.position+pos, transform.rotation * Quaternion.Euler(0f, 0f, -90f));
                     }
                 }
             }
@@ -200,11 +205,51 @@ namespace ClearSky
             // 플레이어의 체력이 0이 된다면 죽는다.
             if (Managers.Data.PlayerData["hp"].content <= 0)
             {
+                alive = false;
                 isKickboard = false;
                 anim.SetBool("isKickBoard", false);
                 anim.SetTrigger("die");
-                alive = false;
+                // alive = false;
+                Managers.Data.PlayerData["hp"].content = 1000;
+                // json 파일에 변경사항을 저장해준다. 
+                playerInfoSave("/Resources/Data/playerData.json");
+
+                FadeOut(2.5f, goToHomeScene);   // 화면이 점점 어두워지고, 씬 이동한다.
             }
+        }
+        void goToHomeScene()
+        {
+            SceneManager.LoadScene("HomeScene");
+        }
+        public void FadeOut(float fadeOutTime, System.Action nextEvent = null)
+        {
+            StartCoroutine(CoFadeOut(fadeOutTime, nextEvent));
+        }
+        // 투명 -> 불투명
+        IEnumerator CoFadeOut(float fadeOutTime, System.Action nextEvent = null)
+        {
+            float black = 0.5f;
+            foregroundImage.transform.SetAsLastSibling();
+            Color tempColor = foregroundImage.color;
+            while (tempColor.a < 1f)
+            {
+                tempColor.a += Time.deltaTime / fadeOutTime;
+                foregroundImage.color = tempColor;
+
+                if (tempColor.a >= 1f) tempColor.a = 1f;
+
+                yield return null;
+            }
+
+            foregroundImage.color = tempColor;
+
+            while (black < 1f)
+            {
+                black += Time.deltaTime / fadeOutTime;
+
+                yield return null;
+            }
+            if (nextEvent != null) nextEvent();
         }
         void EatHPItem()
         {
