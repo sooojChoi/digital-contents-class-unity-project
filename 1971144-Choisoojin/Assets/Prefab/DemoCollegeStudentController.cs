@@ -161,7 +161,7 @@ namespace ClearSky
                 anim.SetTrigger("attack");
                 string mpItemName = Managers.Data.PlayerData["mpItem"].sort;
                 Vector3 pos;
-                float offsetX = 2.0f;
+                float offsetX = 1.0f;
                 float offsetY = 2.2f;
                 if (mpItemName == "redFireAttackItem")
                 {

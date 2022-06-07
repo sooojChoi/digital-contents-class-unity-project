@@ -9,7 +9,7 @@ public class monsterManager : MonoBehaviour
 
     public static int monsterNumPoint1 = 2;  // 1구역에 현재 존재하는 몬스터 개수
     public static int monsterNumPoint2 = 3;  // 2구역에 현재 존재하는 몬스터 개수
-    public static int monsterNumPoint3 = 5;  // 3구역에 현재 존재하는 몬스터 개수
+    public static int monsterNumPoint3 = 4;  // 3구역에 현재 존재하는 몬스터 개수
 
     // 어느 공간에 랜덤으로 생성될지 알기 위해 startX, endX, positionY 지정.(구역마다 다르게 설정되는 것)
     float[] startX = new float[3];
@@ -64,7 +64,7 @@ public class monsterManager : MonoBehaviour
             StartCoroutine("generateObj", 2);
             monsterNumPoint2++;
         }
-        if (monsterNumPoint3 < 5)
+        if (monsterNumPoint3 < 4)
         {
             // 3초 뒤에 이 함수를 호출하도록 함.
             StartCoroutine("generateObj", 3);
