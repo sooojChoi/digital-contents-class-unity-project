@@ -16,6 +16,7 @@ public class onClickForNeoguri : MonoBehaviour
 
     public bool midScene = false;
 
+
     // Start is called before the first frame update
     void Start()
     {
@@ -51,7 +52,6 @@ public class onClickForNeoguri : MonoBehaviour
 
     void showScript()
     {
-
         if (midScene == false)
         {
             firstChracterSaying = InitTextArray();

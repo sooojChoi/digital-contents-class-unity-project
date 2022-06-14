@@ -78,13 +78,6 @@
       "mp": 0
     },
     {
-      "name": "bomb",
-      "koname": "폭탄",
-      "price": 500,
-      "hp": 0,
-      "mp": 80
-    },
-    {
       "name": "redFireAttackItem",
       "koname": "빨간 불꽃",
       "price": 250,

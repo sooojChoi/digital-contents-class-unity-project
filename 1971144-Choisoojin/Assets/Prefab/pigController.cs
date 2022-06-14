@@ -154,6 +154,6 @@ public class pigController : MonoBehaviour
     {   
         yield return new WaitForSecondsRealtime(0.8f);
         Destroy(gameObject);
-        Instantiate(fakeCorn, gameObject.transform.position, fakeCorn.transform.rotation);  // 몬스터를 생성한다.
+        Instantiate(fakeCorn, gameObject.transform.position, fakeCorn.transform.rotation);  // 옥수수깡을 생성한다.
     }
 }

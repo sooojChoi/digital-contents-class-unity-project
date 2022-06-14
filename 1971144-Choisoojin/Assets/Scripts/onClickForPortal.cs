@@ -53,7 +53,11 @@ public class onClickForPortal : MonoBehaviour
                 }
             case "MidScene":
                 {
-                    SceneManager.LoadScene("MidScene");
+                    if(monsterManager.cornNumber >= 10)
+                    {
+                        SceneManager.LoadScene("MidScene");
+                    }
+                   
                     break;
                 }
             default:
@@ -63,11 +67,11 @@ public class onClickForPortal : MonoBehaviour
 
     public void FadeOut(float fadeOutTime, System.Action nextEvent = null)
     {
-        StartCoroutine(CoFadeIn(fadeOutTime, nextEvent));
+        StartCoroutine(CoFadeOut(fadeOutTime, nextEvent));
     }
 
     // 투명 -> 불투명
-    IEnumerator CoFadeIn(float fadeOutTime, System.Action nextEvent = null)
+    IEnumerator CoFadeOut(float fadeOutTime, System.Action nextEvent = null)
     {
         float black = 0.5f;
         foregroundImage.transform.SetAsLastSibling();
