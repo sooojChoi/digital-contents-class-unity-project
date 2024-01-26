@@ -1,1 +1,1 @@
-# digital-contents-class---unity-project
+# 키보드와 마우스 조작으로 진행하는 스토리형 게임입니다.
